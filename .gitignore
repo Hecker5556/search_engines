@@ -1,0 +1,5 @@
+.venv/
+response.json
+result.json
+.vscode
+src/search_engines/__pycache__
