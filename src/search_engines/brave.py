@@ -5,6 +5,7 @@ import chompjs
 import json
 import logging
 from markdownify import markdownify as md
+from typing import Literal
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
@@ -66,13 +67,26 @@ class Brave_Search:
         if len(buf) > 0:
             url += buf
         return url
-    async def image_search(self, query: str):
+    class image_filter:
+        def __init__(self, safe_search: Literal['off', 'moderate', 'strict'] = None, country_code: str = None, ):
+            self.payload = {
+                "safesearch": safe_search,
+                "country": country_code
+            }
+        def get_cookie(self):
+            return self.payload
+        def get_header_cookie(self):
+            return "; ".join([f"{k}={v}" for k, v in self.payload.items()])
+    async def image_search(self, query: str, filter: image_filter = None):
         params = {
             'q': query,
             'source': 'web'
         }
+        cookies = {}
+        if filter:
+            cookies.update(filter.get_cookie())
         image_search_url = "https://search.brave.com/images/__data.json"
-        r: Response = await self.session.get(image_search_url, headers=self.headers, params=params, stream=True)
+        r: Response = await self.session.get(image_search_url, headers=self.headers, params=params, cookies=cookies, stream=True)
         data = (await asyncio.to_thread(json.loads, (await r.acontent())))["nodes"][1]["data"]
         data.append(None)
         body_index = data[0].get("body")
