@@ -3,3 +3,5 @@ response.json
 result.json
 .vscode
 src/search_engines/__pycache__
+response.txt
+data.txt

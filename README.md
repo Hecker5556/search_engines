@@ -2,6 +2,7 @@
 This module grants access to searching up information through multiple search engines through scraping. Uses asynchronous programming and aiohttp for fast results.
 Currently supported search engines:
 * Duckduckgo
+* Brave (might be prone to receive captcha)
 
 ## Installation
 ### UV:
@@ -29,7 +30,7 @@ async def main():
     # Providing your own aiohttp.ClientSession for speed
     import aiohttp
     async with aiohttp.ClientSession() as session:
-        sg = Search_Engines(session=session)
+        sg = Search_Engines(aiohttp_session=session)
     
     # Providing proxy
     sg = Search_Engines(proxy="socks5://username:password@ip:port")
@@ -48,14 +49,14 @@ asyncio.run(main())
 
 ### Commandline
 ```bash
-usage: search-engines [-h] [--engine {duckduckgo}] [--search-type {normal,images}] query
+usage: search-engines [-h] [--engine {duckduckgo,brave}] [--search-type {normal,images}] query
 
 positional arguments:
   query                 text to search up
 
 options:
   -h, --help            show this help message and exit
-  --engine {duckduckgo}, -e {duckduckgo}
+  --engine {duckduckgo,brave}, -e {duckduckgo,brave}
                         which search engine to use
   --search-type {normal,images}, -s {normal,images}
                         search type (normal, images)
