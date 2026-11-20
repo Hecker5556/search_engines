@@ -48,6 +48,6 @@ async def async_main():
         result = await sg.search(args.query, engine=args.engine)
     elif args.search_type == "images":
         result = await sg.image_search(args.query, engine=args.engine)
-    print(json.dumps(result, indent=4))
+    print(json.dumps(result, indent=4, ensure_ascii=False))
 def main():
     asyncio.run(async_main())

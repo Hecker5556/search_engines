@@ -103,7 +103,7 @@ class Brave_Search:
                 thumbnail = {}
             entry = {
                 "title": data[result_entry.get("title", -1)],
-                "url": data[result_entry.get("url", -1)],
+                "source_url": data[result_entry.get("url", -1)],
                 "snippet": data[result_entry.get("description", -1)],
                 "discovery_date": data[result_entry.get("page_fetched", -1)],
                 "date_published": data[result_entry.get("page_age", -1)],

@@ -1,7 +1,7 @@
 [project]
 name = "search-engines"
-version = "0.1.0"
-description = "Add your description here"
+version = "0.1.1"
+description = "Gives access to scraped search engines without authenticated/API keys"
 readme = "README.md"
 
 requires-python = ">=3.10"
